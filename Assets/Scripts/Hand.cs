@@ -30,7 +30,7 @@ public class Hand : MonoBehaviour {
 
         if (!previousPrimaryDown && primaryDown)
         {
-
+            teleporter.Teleport();
         }
 
         previousPrimaryTouched = primaryTouched;
