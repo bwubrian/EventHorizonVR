@@ -54,5 +54,9 @@ public class SpeechToText : MonoBehaviour {
         };
 
         m_DictationRecognizer.Start();
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Name: " + device);
+        }
     }
 }

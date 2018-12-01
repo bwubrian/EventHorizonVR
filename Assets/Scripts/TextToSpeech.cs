@@ -12,18 +12,21 @@ public class TextToSpeech : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        triggerPhrases.Add("hi", "Hello!");
-        triggerPhrases.Add("hello", "Hello!");
+        triggerPhrases.Add("hi", "Greetings!");
+        triggerPhrases.Add("hello", "Greetings!");
 
         triggerPhrases.Add("thanks", "You're welcome!");
         triggerPhrases.Add("thank you", "You're welcome!");
 
         triggerPhrases.Add("light", "I'm turning on the lights.");
         triggerPhrases.Add("computer", "I can log you in, but I'll need a code.");
+
+        //SpeechPlayback("hello there");
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
