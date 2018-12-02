@@ -6,28 +6,27 @@ public class TextToSpeech : MonoBehaviour {
 
     //public SpeechToText ibegyou;
 
+    public GameplayController controller;
     public Dictionary<string, string> triggerPhrases = new Dictionary<string, string>();
     public List<string> heardPhrases = new List<string>();
     public SpeechManager speech;
 
     // Use this for initialization
     void Start () {
-        triggerPhrases.Add("hi", "Greetings!");
-        triggerPhrases.Add("hello", "Greetings!");
+        //triggerPhrases.Add("hi", "Greetings!");
+        //triggerPhrases.Add("hello", "Greetings!");
 
-        triggerPhrases.Add("thanks", "You're welcome!");
-        triggerPhrases.Add("thank you", "You're welcome!");
+        //triggerPhrases.Add("thanks", "You're welcome!");
+        //triggerPhrases.Add("thank you", "You're welcome!");
 
-        triggerPhrases.Add("light", "I'm turning on the lights.");
-        triggerPhrases.Add("computer", "I can log you in, but I'll need a code.");
-
-        //SpeechPlayback("hello there");
+       // triggerPhrases.Add("light", "I'm turning on the lights.");
+       // triggerPhrases.Add("computer", "I can log you in, but I'll need a code.");
 
     }
 
     // Update is called once per frame
     void Update () {
-		
+
 	}
 
     public void addHeardPhrase(string p)
@@ -42,6 +41,9 @@ public class TextToSpeech : MonoBehaviour {
             if (p.Contains(item.Key))
             {
                 SpeechPlayback(item.Value);
+                if (item.Value == "Nice! We're logged on.") {
+                    controller.stage++;
+                }
                 Debug.Log(item.Value);
             }
         }

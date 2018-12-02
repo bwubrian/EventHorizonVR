@@ -27,6 +27,9 @@ public class SpeechToText : MonoBehaviour {
     {
         m_DictationRecognizer = new DictationRecognizer();
 
+        m_DictationRecognizer.InitialSilenceTimeoutSeconds = 30;
+        m_DictationRecognizer.AutoSilenceTimeoutSeconds = 120;
+
         m_DictationRecognizer.DictationResult += (text, confidence) =>
         {
             Debug.LogFormat("Dictation result: {0}", text);
@@ -46,6 +49,7 @@ public class SpeechToText : MonoBehaviour {
         {
             if (completionCause != DictationCompletionCause.Complete)
                 Debug.LogErrorFormat("Dictation completed unsuccessfully: {0}.", completionCause);
+            Debug.Log(completionCause);
         };
 
         m_DictationRecognizer.DictationError += (error, hresult) =>
