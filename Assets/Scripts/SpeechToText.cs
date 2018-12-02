@@ -11,8 +11,11 @@ public class SpeechToText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (m_DictationRecognizer.Status.ToString() == "Stopped")
+        {
+            m_DictationRecognizer.Start();
+        }
+    }
 
     [SerializeField]
     private Text m_Hypotheses;
@@ -27,8 +30,8 @@ public class SpeechToText : MonoBehaviour {
     {
         m_DictationRecognizer = new DictationRecognizer();
 
-        m_DictationRecognizer.InitialSilenceTimeoutSeconds = 30;
-        m_DictationRecognizer.AutoSilenceTimeoutSeconds = 120;
+        m_DictationRecognizer.InitialSilenceTimeoutSeconds = 100;
+        m_DictationRecognizer.AutoSilenceTimeoutSeconds = 200;
 
         m_DictationRecognizer.DictationResult += (text, confidence) =>
         {

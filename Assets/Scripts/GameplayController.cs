@@ -6,22 +6,22 @@ public class GameplayController : MonoBehaviour {
 
     public TextToSpeech tts;
 
-    private float time;
+    public float time;
     public int stage = 0;
 
     // Use this for initialization
     void Start() {
         time = Time.time;
-        Debug.Log(time);
     }
 
     // Update is called once per frame
     void Update() {
         time = Time.time;
+
         if (time > 3 && stage == 0)
         {
             tts.SpeechPlayback("Hey, how was your nap? You've been in hibernation for 42 years now!" +
-            " Looks like your ship is being sucked into a black hole! We need to turn on the wrap" +
+            " Looks like your ship is being sucked into a black hole! We need to turn on the warp" +
             " engine as soon as possible! We'll need to access the computer first. Can you go to " +
             "the command center and look for an accesscode? Just shout it out when you got it.");
             //tts.SpeechPlayback("hEllow uwu");

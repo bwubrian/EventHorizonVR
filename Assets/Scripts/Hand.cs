@@ -16,7 +16,7 @@ public class Hand : MonoBehaviour {
     void Update () {
         primaryTouched = OVRInput.Get(OVRInput.Touch.One, controller);
 		primaryDown = OVRInput.Get(OVRInput.Button.One, controller);
-        print("Touched: " + primaryTouched + "Presssed: " + primaryDown);
+        //print("Touched: " + primaryTouched + "Presssed: " + primaryDown);
 
         if (!previousPrimaryTouched && primaryTouched)
         {
