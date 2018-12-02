@@ -6,7 +6,7 @@ public class TextToSpeech : MonoBehaviour {
 
     //public SpeechToText ibegyou;
 
-    public GameplayController controller;
+    public GameplayController gameplayController;
     public Dictionary<string, string> triggerPhrases = new Dictionary<string, string>();
     public List<string> heardPhrases = new List<string>();
     public SpeechManager speech;
@@ -40,11 +40,9 @@ public class TextToSpeech : MonoBehaviour {
         {
             if (p.Contains(item.Key))
             {
-                SpeechPlayback(item.Value);
-                if (item.Value == "Nice! We're logged on.") {
-                    controller.stage++;
+                if (item.Value == "enter stage 3" && gameplayController.stage == 2) {
+                    gameplayController.stage++;
                 }
-                Debug.Log(item.Value);
             }
         }
     }
