@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Button
   - Interactable
+  - Generator Core Detector
   layers:
   - Default
   - TransparentFX

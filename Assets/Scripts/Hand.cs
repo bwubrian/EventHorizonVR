@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour {
     public OVRInput.Controller controller;
     public VRTeleporter teleporter;
     public GameplayController gameplayController;
+    public bool teleportableHand;
 
     public bool primaryTouched = false;
     public bool primaryDown = false;
@@ -21,6 +22,11 @@ public class Hand : MonoBehaviour {
     {
 
         if (other.CompareTag("Button") && gameplayController.stage == 4)
+        {
+            gameplayController.stage++;
+        }
+
+        if (other.CompareTag("Button") && gameplayController.stage == 8)
         {
             gameplayController.stage++;
         }
@@ -53,8 +59,9 @@ public class Hand : MonoBehaviour {
 
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
-
-        rigidbody.velocity = OVRInput.GetLocalControllerVelocity(controller);
+        
+        Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(controller);
+        rigidbody.velocity = new Vector3(-controllerVelocity.x, controllerVelocity.y, -controllerVelocity.z);
 
         grabbingObject = false;
         grabbedObject = null;
@@ -62,28 +69,34 @@ public class Hand : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        primaryTouched = OVRInput.Get(OVRInput.Touch.One, controller);
-		primaryDown = OVRInput.Get(OVRInput.Button.One, controller);
+
         handTriggerState = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller);
-        //print("Touched: " + primaryTouched + "Presssed: " + primaryDown);
 
-        if (!previousPrimaryTouched && primaryTouched)
+        if (teleportableHand)
         {
-            teleporter.ToggleDisplay(true);
-        }
+            primaryTouched = OVRInput.Get(OVRInput.Touch.One, controller);
+            primaryDown = OVRInput.Get(OVRInput.Button.One, controller);
+            //print("Touched: " + primaryTouched + "Presssed: " + primaryDown);
 
-        if (previousPrimaryTouched && !primaryTouched)
-        {
-            teleporter.ToggleDisplay(false);
-        }
+            if (primaryTouched)
+            {
+                teleporter.ToggleDisplay(false);
+                teleporter.ToggleDisplay(true);
+            }
 
-        if (!previousPrimaryDown && primaryDown)
-        {
-            teleporter.Teleport();
-        }
+            if (previousPrimaryTouched && !primaryTouched)
+            {
+                teleporter.ToggleDisplay(false);
+            }
 
-        previousPrimaryTouched = primaryTouched;
-        previousPrimaryDown = primaryDown;
+            if (!previousPrimaryDown && primaryDown)
+            {
+                teleporter.Teleport();
+            }
+
+            previousPrimaryTouched = primaryTouched;
+            previousPrimaryDown = primaryDown;
+        }
 
         if (grabbingObject)
         {

@@ -43,6 +43,16 @@ public class GameplayController : MonoBehaviour {
                 " generator core. There should be a backup in the hibernation room. Go look for it now; we're running out of time.");
             stage++;
         }
+        if (stage == 7)
+        {
+            tts.SpeechPlayback("Yeet! Your ship is all powered up! Dab on the haters fam! Try turning on the engine now.");
+            stage++;
+        }
+        if (stage == 9)
+        {
+            tts.SpeechPlayback("Congrats you win bro.");
+            stage++;
+        }
     }
     
 }
