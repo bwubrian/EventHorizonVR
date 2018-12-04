@@ -104,9 +104,13 @@ public class VRTeleporter : MonoBehaviour
             // linecast between last vertex and current vertex
             if (Physics.Linecast(pos, newPos, out hit, ~excludeLayers))
             {
-                groundDetected = true;
                 groundPos = hit.point;
                 lastNormal = hit.normal;
+                Debug.Log(groundPos);
+                if (groundPos.y < 3.5f && lastNormal.x < 0.001f && lastNormal.x > -0.001f && lastNormal.y < 1.001f && lastNormal.y > 0.999 && lastNormal.z < 0.001f && lastNormal.z > -0.001f)
+                {
+                    groundDetected = true;
+                }
             }
             pos = newPos; // update current vertex as last vertex
         }

@@ -7,7 +7,7 @@ public class Hand : MonoBehaviour {
     public OVRInput.Controller controller;
     public VRTeleporter teleporter;
     public GameplayController gameplayController;
-    public bool teleportableHand;
+    public bool rightHand;
 
     public bool primaryTouched = false;
     public bool primaryDown = false;
@@ -16,6 +16,7 @@ public class Hand : MonoBehaviour {
 
     public float handTriggerState;
     private bool grabbingObject = false;
+    private bool grabbingCore = false;
     private GameObject grabbedObject;
 
     void OnTriggerStay(Collider other)
@@ -31,10 +32,18 @@ public class Hand : MonoBehaviour {
             gameplayController.stage++;
         }
 
-        if (other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable") || other.CompareTag("Core"))
         {
             if (handTriggerState > 0.9f && !grabbingObject)
             {
+                if (other.CompareTag("Core"))
+                {
+                    grabbingCore = true;
+                }
+                else
+                {
+                    grabbingCore = false;
+                }
                 Grab(other.gameObject);
             }
         }
@@ -46,6 +55,37 @@ public class Hand : MonoBehaviour {
         grabbingObject = true;
         grabbedObject = obj;
         grabbedObject.transform.parent = transform;
+
+        if (grabbingCore)
+        {
+            if (rightHand)
+            {
+                grabbedObject.transform.localPosition = new Vector3(-0.6187326f, -0.1650915f, -0.03062823f);
+                grabbedObject.transform.localEulerAngles = new Vector3(-35.969f, -7.807f, -75.728f);
+            }
+            else
+            {
+                grabbedObject.transform.localPosition = new Vector3(0.5849947f, -0.2146529f, -0.09517444f);
+                grabbedObject.transform.localEulerAngles = new Vector3(54.884f, -20.437f, 60.327f);
+                //grabbedObject.transform.localPosition = new Vector3(-0.5839626f, -0.1678392f, -0.002085599f);
+                //grabbedObject.transform.localEulerAngles = new Vector3(-65.50201f, -29.101f, -59.123f);
+            }
+        }
+        else
+        {
+            if (rightHand)
+            {
+                grabbedObject.transform.localPosition = new Vector3(-0.3937587f, -0.1522766f, 0.01180603f);
+                grabbedObject.transform.localEulerAngles = new Vector3(-9.032001f, -170.619f, 73.193f);
+            }
+            else
+            {
+                grabbedObject.transform.localPosition = new Vector3(0.001604551f, -0.04487047f, -0.01250178f);
+                grabbedObject.transform.localEulerAngles = new Vector3(-142.882f, -18.38199f, -65.75198f);
+                //grabbedObject.transform.localPosition = new Vector3(-0.5839626f, -0.1678392f, -0.002085599f);
+                //grabbedObject.transform.localEulerAngles = new Vector3(-65.50201f, -29.101f, -59.123f);
+            }
+        }
 
         grabbedObject.GetComponent<Rigidbody>().useGravity = false;
         grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -64,6 +104,7 @@ public class Hand : MonoBehaviour {
         rigidbody.velocity = new Vector3(-controllerVelocity.x, controllerVelocity.y, -controllerVelocity.z);
 
         grabbingObject = false;
+        grabbingCore = false;
         grabbedObject = null;
     }
 
@@ -72,7 +113,7 @@ public class Hand : MonoBehaviour {
 
         handTriggerState = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller);
 
-        if (teleportableHand)
+        if (rightHand)
         {
             primaryTouched = OVRInput.Get(OVRInput.Touch.One, controller);
             primaryDown = OVRInput.Get(OVRInput.Button.One, controller);

@@ -34,23 +34,24 @@ public class GameplayController : MonoBehaviour {
         }
         if (stage == 3)
         {
-            tts.SpeechPlayback("Nice! We're logged on. Now, go to the engine module to turn on the engine!");
+            tts.SpeechPlayback("Nice! We're logged on. Now, go to the engine module to turn on the engine! There's a button on the control terminal.");
             stage++;
         }
         if (stage == 5)
         {
             tts.SpeechPlayback("Oops. Looks like the power source is depleted. We need to change the" +
-                " generator core. There should be a backup in the hibernation room. Go look for it now; we're running out of time.");
+                " generator core. There should be a backup in the hibernation room. Go look for it, and put it inside the generator to the right of the terminal." +
+                " Hurry up, we're running out of time.");
             stage++;
         }
         if (stage == 7)
         {
-            tts.SpeechPlayback("Yeet! Your ship is all powered up! Dab on the haters fam! Try turning on the engine now.");
+            tts.SpeechPlayback("Great! Your ship is all powered up! Try turning on the engine now.");
             stage++;
         }
         if (stage == 9)
         {
-            tts.SpeechPlayback("Congrats you win bro.");
+            tts.SpeechPlayback("The engine has started! Congrats, you've won the game.");
             stage++;
         }
     }
